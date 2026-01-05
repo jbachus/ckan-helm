@@ -37,6 +37,9 @@ spec:
           emptyDir: {}
         - name: ckan-config-storage
           emptyDir: {}
+        {{- with .Values.ckan.extraVolumes }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
       initContainers:
         {{- if .Values.pvc.enabled }}
         - name: set-volume-ownsership
@@ -234,7 +237,9 @@ spec:
             - name: ckan-config-storage
               mountPath: /app/production.ini
               subPath: production.ini
-          
+            {{- with .Values.ckan.extraVolumeMounts }}
+            {{- . | toYaml | nindent 12 }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

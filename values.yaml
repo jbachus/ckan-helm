@@ -167,6 +167,19 @@ ckan:
   #
   extraEnv: []
 
+  # ckan.extraVolumes -- Add volumes to ckan and ckan worker containers
+  # ckan.extraVolumeMounts -- Add volume mounts to ckan and ckan worker containers
+  # Example:
+  # extraVolumes:
+  #   - name: my-volume
+  #     persistentVolumeClaim:
+  #       claimName: my-volume-claim
+  # extraVolumeMounts:
+  #   - name: my-volume
+  #     mountPath: /app/data
+  extraVolumes: []
+  extraVolumeMounts: []
+
   readiness:
     # ckan.readiness.initialDelaySeconds -- Inital delay seconds for the readiness probe
     initialDelaySeconds: 10

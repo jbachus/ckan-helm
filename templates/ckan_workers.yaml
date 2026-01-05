@@ -37,6 +37,9 @@ spec:
           persistentVolumeClaim:
             claimName: ckan
         {{- end }}
+        {{- with $.Values.ckan.extraVolumes }}
+        {{- . | toYaml | nindent 8 }}
+        {{- end }}
       initContainers:
         - name: wait-for-db
           image: postgres:17-alpine
@@ -243,6 +246,9 @@ spec:
             - name: ckan
               mountPath: {{ $.Values.ckan.storagePath }}
               readOnly: false
+            {{- end }}
+            {{- with $.Values.ckan.extraVolumeMounts }}
+            {{- . | toYaml | nindent 12 }}
             {{- end }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
